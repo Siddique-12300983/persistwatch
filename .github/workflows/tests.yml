@@ -1,0 +1,38 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  unittest:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Run the test suite
+        run: python -m unittest discover -s tests -t . -v
+
+      - name: The sample directory must still report its findings
+        run: |
+          python -m persistwatch samples/systemd-sample --recent-days 0 --exit-zero \
+            | tee /tmp/report.txt
+          grep -q "findings     : 10" /tmp/report.txt
+
+      - name: Findings must set exit code 1
+        run: |
+          set +e
+          python -m persistwatch samples/systemd-sample --recent-days 0 > /dev/null
+          code=$?
+          set -e
+          test "$code" -eq 1
+
+      - name: A clean directory must set exit code 0
+        run: python -m persistwatch tests/fixtures/clean --recent-days 0
