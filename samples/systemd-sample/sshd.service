@@ -1,0 +1,15 @@
+[Unit]
+Description=OpenBSD Secure Shell server
+Documentation=man:sshd(8)
+After=network.target auditd.service
+
+[Service]
+EnvironmentFile=-/etc/default/ssh
+ExecStartPre=/usr/sbin/sshd -t
+ExecStart=/usr/sbin/sshd -D $SSHD_OPTS
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

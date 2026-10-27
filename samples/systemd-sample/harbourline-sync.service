@@ -1,0 +1,8 @@
+[Unit]
+Description=Harbourline Freight manifest sync
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=sync
+ExecStart=/usr/local/bin/harbourline-sync --once

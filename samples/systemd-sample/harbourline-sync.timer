@@ -1,0 +1,10 @@
+[Unit]
+Description=Sync the freight manifest every hour
+
+[Timer]
+OnCalendar=hourly
+Persistent=true
+Unit=harbourline-sync.service
+
+[Install]
+WantedBy=timers.target
