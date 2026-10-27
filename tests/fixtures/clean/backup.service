@@ -1,0 +1,8 @@
+[Unit]
+Description=Nightly borg backup of /srv to the NAS
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=backup
+ExecStart=/usr/bin/borg create --stats /mnt/nas/repo::{now} /srv

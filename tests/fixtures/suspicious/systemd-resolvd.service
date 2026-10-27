@@ -1,0 +1,9 @@
+[Unit]
+Description=Network Name Resolution
+
+[Service]
+Type=notify
+ExecStart=/usr/lib/systemd/systemd-resolvd
+
+[Install]
+WantedBy=multi-user.target

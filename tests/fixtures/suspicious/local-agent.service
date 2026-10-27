@@ -1,0 +1,6 @@
+[Service]
+Type=simple
+ExecStart=agent.sh --daemon
+
+[Install]
+WantedBy=multi-user.target

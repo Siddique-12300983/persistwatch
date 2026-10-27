@@ -1,0 +1,10 @@
+[Unit]
+Description=Clean the cache
+
+[Timer]
+OnBootSec=15s
+OnUnitActiveSec=30s
+Unit=cache-cleanup.service
+
+[Install]
+WantedBy=timers.target
